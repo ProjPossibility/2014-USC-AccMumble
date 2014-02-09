@@ -351,7 +351,7 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 		//mapCountryToIP(enteredCountry) will return address - TBD
 		String testAddress = "2600:3C03::21:2002";
 		Random rand = new Random();
-		final String name = "MyServer" + rand.nextInt(); //(nameEdit).getText().toString().trim();
+		final String name = enteredCountry + rand.nextInt(); //(nameEdit).getText().toString().trim();
 		final String host = testAddress;
 		int port = 36001;
 		int randNum = rand.nextInt(500);
