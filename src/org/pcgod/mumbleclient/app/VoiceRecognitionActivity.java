@@ -34,6 +34,7 @@ public class VoiceRecognitionActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.voice_recognizer);
 		mbtSpeak = (Button) findViewById(R.id.btSpeak);
 		metTextHint = (EditText) findViewById(R.id.etTextHint);
