@@ -31,6 +31,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 
 /**
  * The main server list activity.
@@ -41,7 +43,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author pcgod
  *
  */
-public class ServerList extends ConnectedListActivity {
+public class ServerList extends ConnectedListActivity implements OnInitListener {
+	private TextToSpeech tts;
+	
 	private class ServerAdapter extends BaseAdapter {
 		private final Context context;
 		private final Cursor cursor;
@@ -339,6 +343,8 @@ public class ServerList extends ConnectedListActivity {
 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
+		tts = new TextToSpeech(ServerList.this, ServerList.this);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		registerForContextMenu(getListView());
@@ -352,9 +358,12 @@ public class ServerList extends ConnectedListActivity {
 			mServiceObserver = new ServerServiceObserver();
 		}
 
+		
 		Button b = (Button)findViewById(R.id.button1);
 		b.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				String addServerMsg = "my lord how may i be of service";
+				tts.speak(addServerMsg, TextToSpeech.QUEUE_ADD, null);
 				Intent i = new Intent(ServerList.this, org.pcgod.mumbleclient.app.VoiceRecognitionActivity.class);
 				startActivity(i);
 			}
@@ -428,4 +437,18 @@ public class ServerList extends ConnectedListActivity {
 	void fillList() {
 		setListAdapter(new ServerAdapter(this, dbAdapter));
 	}
+
+	
+	@Override
+	public void onInit(int status) {
+		if (status == TextToSpeech.SUCCESS) {
+			Toast.makeText(ServerList.this,
+			     "Text-To-Speech engine is initialized", Toast.LENGTH_LONG).show();
+		}
+		else if (status == TextToSpeech.ERROR) {
+		    Toast.makeText(ServerList.this,
+		         "Error occurred while initializing Text-To-Speech engine", Toast.LENGTH_LONG).show();
+		}
+	}
+	
 }
