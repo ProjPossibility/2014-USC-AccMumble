@@ -1,5 +1,8 @@
 package org.pcgod.mumbleclient.app;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import junit.framework.Assert;
 
 import org.pcgod.mumbleclient.Globals;
@@ -337,6 +340,30 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 		final int requestCode,
 		final int resultCode,
 		final Intent data) {
+		
+		if (data == null)
+			return;
+		
+		ArrayList<String> textMatchList = data.getStringArrayListExtra("Command");
+		String enteredCountry = textMatchList.get(0);
+		
+		//now to put it in db
+		//mapCountryToIP(enteredCountry) will return address - TBD
+		String testAddress = "2600:3C03::21:2002";
+		Random rand = new Random();
+		final String name = "MyServer" + rand.nextInt(); //(nameEdit).getText().toString().trim();
+		final String host = testAddress;
+		int port = 36001;
+		int randNum = rand.nextInt(500);
+		final String username = "user0" + randNum; //(usernameEdit).getText().toString().trim();
+		final String password = "dummy"; //(passwordEdit).getText().toString();
+		
+		final DbAdapter db = new DbAdapter(ServerList.this.getApplicationContext());
+		
+		db.open();
+		db.createServer(name, host, port, username, password);
+		db.close();
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		fillList();
 	}
@@ -365,7 +392,7 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 				String addServerMsg = "my lord how may i be of service";
 				tts.speak(addServerMsg, TextToSpeech.QUEUE_ADD, null);
 				Intent i = new Intent(ServerList.this, org.pcgod.mumbleclient.app.VoiceRecognitionActivity.class);
-				startActivity(i);
+				startActivityForResult(i, 1);
 			}
 		});
 		

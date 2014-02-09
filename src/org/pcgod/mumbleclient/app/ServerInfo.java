@@ -1,5 +1,7 @@
 package org.pcgod.mumbleclient.app;
 
+import java.util.Random;
+
 import org.pcgod.mumbleclient.R;
 
 import android.app.Activity;
@@ -13,24 +15,32 @@ import android.widget.EditText;
 public class ServerInfo extends Activity {
 	private final OnClickListener addButtonListener = new OnClickListener() {
 		public void onClick(final View v) {
-			final EditText nameEdit = (EditText) findViewById(R.id.serverNameEdit);
-			final EditText hostEdit = (EditText) findViewById(R.id.serverHostEdit);
-			final EditText portEdit = (EditText) findViewById(R.id.serverPortEdit);
-			final EditText usernameEdit = (EditText) findViewById(R.id.serverUsernameEdit);
-			final EditText passwordEdit = (EditText) findViewById(R.id.serverPasswordEdit);
+			String testAddress = "2600:3C03::21:2002";
+			//final EditText nameEdit = (EditText) findViewById(R.id.serverNameEdit);
+			//final EditText hostEdit = (EditText) findViewById(R.id.serverHostEdit);
+			//final EditText portEdit = (EditText) findViewById(R.id.serverPortEdit);
+			//final EditText usernameEdit = (EditText) findViewById(R.id.serverUsernameEdit);
+			//final EditText passwordEdit = (EditText) findViewById(R.id.serverPasswordEdit);
 
-			final String name = (nameEdit).getText().toString().trim();
-			final String host = (hostEdit).getText().toString().trim();
+			Random rand = new Random();
+			
+			final String name = "MyServer" + rand.nextInt(); //(nameEdit).getText().toString().trim();
+			final String host = testAddress; //(hostEdit).getText().toString().trim();
 
-			int port;
+			int port = 36001;
+			
+			/*
 			try {
 				port = Integer.parseInt((portEdit).getText().toString());
 			} catch (final NumberFormatException ex) {
 				port = 64738;
 			}
+			*/
 
-			final String username = (usernameEdit).getText().toString().trim();
-			final String password = (passwordEdit).getText().toString();
+			
+			int randNum = rand.nextInt(500);
+			final String username = "user0" + randNum; //(usernameEdit).getText().toString().trim();
+			final String password = "dummy"; //(passwordEdit).getText().toString();
 
 			final DbAdapter db = new DbAdapter(v.getContext());
 

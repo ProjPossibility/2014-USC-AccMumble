@@ -37,7 +37,15 @@
 
     <ListView
         android:id="@+id/lvTextMatches"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="240dp" />
+
+    <Button
+        android:id="@+id/buttonVoiceCommandDone"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:text="OK" />
 
 </LinearLayout>
+
+    

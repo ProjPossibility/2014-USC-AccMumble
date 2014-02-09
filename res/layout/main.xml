@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/android:empty"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="438dp"
         android:gravity="center"
         android:text="@string/noServers"
         android:textColor="#444444"

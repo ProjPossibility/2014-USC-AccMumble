@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,19 +24,30 @@ import android.widget.Toast;
 public class VoiceRecognitionActivity extends Activity {
 	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1001;
 
+	private Button mbtSpeak;
 	private EditText metTextHint;
 	private ListView mlvTextMatches;
 	private Spinner msTextMatches;
-	private Button mbtSpeak;
-
+	
+	private ArrayList<String> textMatchList;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.voice_recognizer);
+		mbtSpeak = (Button) findViewById(R.id.btSpeak);
 		metTextHint = (EditText) findViewById(R.id.etTextHint);
 		mlvTextMatches = (ListView) findViewById(R.id.lvTextMatches);
 		msTextMatches = (Spinner) findViewById(R.id.sNoOfMatches);
-		mbtSpeak = (Button) findViewById(R.id.btSpeak);
+		Button b = (Button)findViewById(R.id.buttonVoiceCommandDone);
+		b.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent output = new Intent();
+				output.putExtra("Command", VoiceRecognitionActivity.this.textMatchList);
+				setResult(RESULT_OK, output);
+				VoiceRecognitionActivity.this.finish();
+			}
+		});
 	}
 
 	public void checkVoiceRecognition() {
@@ -56,23 +68,26 @@ public class VoiceRecognitionActivity extends Activity {
 		intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass()
 				.getPackage().getName());
 
-		// Display an hint to the user about what he should say.
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, metTextHint.getText()
-				.toString());
 
+		// Display an hint to the user about what he should say.
+				intent.putExtra(RecognizerIntent.EXTRA_PROMPT, metTextHint.getText()
+						.toString());
+				
 		// Given an hint to the recognizer about what the user is going to say
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 				RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
 
-		// If number of Matches is not selected then return show toast message
-		if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
-			Toast.makeText(this, "Please select No. of Matches from spinner",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
 
-		int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem()
-				.toString());
+		// If number of Matches is not selected then return show toast message
+				if (msTextMatches.getSelectedItemPosition() == AdapterView.INVALID_POSITION) {
+					Toast.makeText(this, "Please select No. of Matches from spinner",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				int noOfMatches = Integer.parseInt(msTextMatches.getSelectedItem()
+						.toString());
+				
 		// Specify how many results you want to receive. The results will be
 		// sorted where the first result is the one with higher confidence.
 
@@ -88,8 +103,7 @@ public class VoiceRecognitionActivity extends Activity {
 			//If Voice recognition is successful then it returns RESULT_OK
 			if(resultCode == RESULT_OK) {
 
-				ArrayList<String> textMatchList = data
-				.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+				textMatchList = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
 				if (!textMatchList.isEmpty()) {
 					// If first Match contains the 'search' word
@@ -103,10 +117,6 @@ public class VoiceRecognitionActivity extends Activity {
 						startActivity(search);
 					} else {
 						// populate the Matches
-						mlvTextMatches
-						.setAdapter(new ArrayAdapter<String>(this,
-								android.R.layout.simple_list_item_1,
-								textMatchList));
 					}
 
 				}
@@ -124,7 +134,9 @@ public class VoiceRecognitionActivity extends Activity {
 			}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+	
 	void showToastMessage(String message){
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
+
 }

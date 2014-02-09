@@ -36,6 +36,7 @@ public final class R {
         public static final int browseButton=0x7f080002;
         public static final int btSpeak=0x7f080022;
         public static final int button1=0x7f080013;
+        public static final int buttonVoiceCommandDone=0x7f080025;
         public static final int channelName=0x7f080001;
         public static final int channelUsers=0x7f080004;
         public static final int chatReceiver=0x7f08000f;
