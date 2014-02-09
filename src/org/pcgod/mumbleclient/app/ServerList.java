@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -351,6 +352,14 @@ public class ServerList extends ConnectedListActivity {
 			mServiceObserver = new ServerServiceObserver();
 		}
 
+		Button b = (Button)findViewById(R.id.button1);
+		b.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent i = new Intent(ServerList.this, org.pcgod.mumbleclient.app.VoiceRecognitionActivity.class);
+				startActivity(i);
+			}
+		});
+		
 		dbAdapter = new DbAdapter(this);
 		dbAdapter.open();
 

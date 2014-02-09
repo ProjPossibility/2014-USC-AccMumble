@@ -9,10 +9,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".app.Preferences" />
+		<activity android:name=".app.Preferences"/>
 		<activity android:name=".app.ServerInfo" />
 		<activity android:name=".app.ChannelList" android:launchMode="singleTask" />
 		<activity android:name=".app.ChatActivity" />
+		<activity android:name=".app.VoiceRecognitionActivity" />
 		<service android:enabled="true" android:name=".service.MumbleService" />
 	</application>
 	<uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8" />
