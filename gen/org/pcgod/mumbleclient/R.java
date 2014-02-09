@@ -34,9 +34,9 @@ public final class R {
         public static final int LinearLayout02=0x7f080005;
         public static final int RelativeLayout01=0x7f08000a;
         public static final int browseButton=0x7f080002;
-        public static final int btSpeak=0x7f080022;
+        public static final int btSpeak=0x7f080021;
         public static final int button1=0x7f080013;
-        public static final int buttonVoiceCommandDone=0x7f080025;
+        public static final int buttonVoiceCommandDone=0x7f080022;
         public static final int channelName=0x7f080001;
         public static final int channelUsers=0x7f080004;
         public static final int chatReceiver=0x7f08000f;
@@ -44,9 +44,9 @@ public final class R {
         public static final int chatText=0x7f080010;
         public static final int chatTextEdit=0x7f080011;
         public static final int connectionViewRoot=0x7f080000;
-        public static final int etTextHint=0x7f080021;
+        public static final int etTextHint=0x7f080024;
         public static final int joinButton=0x7f080007;
-        public static final int lvTextMatches=0x7f080024;
+        public static final int lvTextMatches=0x7f080026;
         public static final int noUsersText=0x7f080003;
         public static final int sNoOfMatches=0x7f080023;
         public static final int send_button=0x7f080012;
@@ -65,6 +65,7 @@ public final class R {
         public static final int server_row_user=0x7f080020;
         public static final int speakButton=0x7f080008;
         public static final int speakerCheckBox=0x7f080009;
+        public static final int textView1=0x7f080025;
         public static final int userRowName=0x7f08000d;
         public static final int userRowState=0x7f08000b;
         public static final int userRowStatus=0x7f08000c;

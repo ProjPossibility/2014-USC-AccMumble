@@ -1,28 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click me!!" />
 
     <TextView
         android:id="@+id/android:empty"
         android:layout_width="match_parent"
-        android:layout_height="438dp"
+        android:layout_height="338dp"
         android:gravity="center"
         android:text="@string/noServers"
         android:textColor="#444444"
         android:textSize="30sp" />
 
 	<ListView
-		android:id="@+id/android:list"
-		android:layout_height="fill_parent"
-		android:layout_width="fill_parent" />
+	    android:id="@+id/android:list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_alignBottom="@+id/android:empty" />
 
-
-</LinearLayout>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Click me!!" />
+    
+</RelativeLayout>

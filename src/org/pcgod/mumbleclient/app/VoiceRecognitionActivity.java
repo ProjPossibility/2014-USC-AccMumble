@@ -120,6 +120,7 @@ public class VoiceRecognitionActivity extends Activity {
 					}
 
 				}
+				
 			//Result code for various error.	
 			}else if(resultCode == RecognizerIntent.RESULT_AUDIO_ERROR){
 				showToastMessage("Audio Error");
@@ -132,6 +133,7 @@ public class VoiceRecognitionActivity extends Activity {
 			}else if(resultCode == RecognizerIntent.RESULT_SERVER_ERROR){
 				showToastMessage("Server Error");
 			}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	

@@ -1,6 +1,7 @@
 package org.pcgod.mumbleclient.app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import junit.framework.Assert;
@@ -46,6 +47,7 @@ import android.speech.tts.TextToSpeech.OnInitListener;
  * @author pcgod
  *
  */
+
 public class ServerList extends ConnectedListActivity implements OnInitListener {
 	private TextToSpeech tts;
 	
@@ -350,10 +352,25 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 		//now to put it in db
 		//mapCountryToIP(enteredCountry) will return address - TBD
 		String testAddress = "2600:3C03::21:2002";
+		HashMap<String,String> hostnames=new HashMap<String, String>();
+		HashMap<String,Integer> portnos=new HashMap<String, Integer>();
+		hostnames.put("argentina", "2600:3C03::21:2002");
+		portnos.put("argentina", 36001);
+		hostnames.put("usc", "2607:f2e0:f:39b::2");
+		portnos.put("usc", 5187);
+		hostnames.put("japan", "49.212.25.222");
+		portnos.put("japan", 6002);
 		Random rand = new Random();
 		final String name = enteredCountry + rand.nextInt(); //(nameEdit).getText().toString().trim();
-		final String host = testAddress;
+		String host = testAddress;
 		int port = 36001;
+		
+		if(hostnames.containsKey(enteredCountry.toLowerCase()))
+		{
+			port=portnos.get(enteredCountry.toLowerCase());
+			host=hostnames.get(enteredCountry.toLowerCase());
+		}
+		
 		int randNum = rand.nextInt(500);
 		final String username = "user0" + randNum; //(usernameEdit).getText().toString().trim();
 		final String password = "dummy"; //(passwordEdit).getText().toString();
@@ -364,6 +381,9 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 		db.createServer(name, host, port, username, password);
 		db.close();
 		
+		String msg1 = "Server added! yeay!";
+		tts.speak(msg1, TextToSpeech.QUEUE_ADD, null);
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		fillList();
 	}
@@ -371,6 +391,7 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
 		tts = new TextToSpeech(ServerList.this, ServerList.this);
+
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
@@ -389,8 +410,13 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 		Button b = (Button)findViewById(R.id.button1);
 		b.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				String addServerMsg = "my lord how may i be of service";
-				tts.speak(addServerMsg, TextToSpeech.QUEUE_ADD, null);
+				String msg2 = ". . . . Press on the button at the bottom left corner . . . .  to specify the . . country for the server or name of the server.";
+				String msg3 = "After that press on the button at the bottom right corner to continue."; 
+				String msg4 = "This will set up your server. and you will just have to tap on the server. at the top to continue.";
+				
+				tts.speak(msg2, TextToSpeech.QUEUE_ADD, null);
+				tts.speak(msg3, TextToSpeech.QUEUE_ADD, null);
+				tts.speak(msg4, TextToSpeech.QUEUE_ADD, null);
 				Intent i = new Intent(ServerList.this, org.pcgod.mumbleclient.app.VoiceRecognitionActivity.class);
 				startActivityForResult(i, 1);
 			}
@@ -469,6 +495,9 @@ public class ServerList extends ConnectedListActivity implements OnInitListener 
 	@Override
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
+			String msg1 = "Welcome to Tycheee! Please press the button at the bottom.";
+			tts.speak(msg1, TextToSpeech.QUEUE_ADD, null);
+			
 			Toast.makeText(ServerList.this,
 			     "Text-To-Speech engine is initialized", Toast.LENGTH_LONG).show();
 		}

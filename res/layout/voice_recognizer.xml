@@ -1,51 +1,74 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/etTextHint"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:lines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:text="@string/etSearchHint"/>
-    
     <Button
         android:id="@+id/btSpeak"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:onClick="speak"
         android:padding="@dimen/padding_medium"
         android:text="@string/btSpeak"
         tools:context=".VoiceRecognitionActivity" />
 
+    <Button
+        android:id="@+id/buttonVoiceCommandDone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="OK" />
+
     <Spinner
         android:id="@+id/sNoOfMatches"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etTextHint"
+        android:layout_marginTop="24dp"
         android:entries="@array/saNoOfMatches"
-        android:prompt="@string/sNoOfMatches"/>
-    
+        android:prompt="@string/sNoOfMatches" />
+
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/etTextHint"
+        android:layout_alignParentLeft="true"
         android:text="@string/tvTextMatches"
         android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etTextHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="1"
+        android:visibility="gone"
+        android:text="@string/etSearchHint" >
+
+    </EditText>
 
     <ListView
         android:id="@+id/lvTextMatches"
         android:layout_width="wrap_content"
-        android:layout_height="240dp" />
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sNoOfMatches" >
+    </ListView>
 
-    <Button
-        android:id="@+id/buttonVoiceCommandDone"
-        android:layout_width="98dp"
-        android:layout_height="wrap_content"
-        android:text="OK" />
+    <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+	<LinearLayout
+	    android:focusable="true" android:focusableInTouchMode="true"
+	    android:layout_width="0px" android:layout_height="0px"/>
 
-</LinearLayout>
-
-    
+</RelativeLayout>
